@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+<html lang="en">
+<head>
+    <script>
+      function szamol(){
+        var ma = new Date();
+        var ev = parseInt(document.napszam.ev.value);
+        var ho = parseInt(document.napszam.ho.value);
+        var nap = parseInt(document.napszam.nap.value);
+        var beDatum = new Date(ev,ho-1,nap);
+        alert("Napszám:"+Math.floor((ma-beDatum)/1000/60/60/24));
+        alert(beDatum.toString());
+      }
+      function napra(){
+        var napok = new Array('vasárnap',
+                              'hetfő',
+                              'kedd',
+                              'szerda',
+                              'csütörtök',
+                              'péntek',
+                              'szombat')
+        var ma = new Date();
+        var ev = parseInt(document.napszam.ev.value);
+        var ho = parseInt(document.napszam.ho.value);
+        var nap = parseInt(document.napszam.nap.value);
+        ma.setFullYear(ev,ho-1,nap);
+        alert(napok[ma.getDay()]);
+      }
+    </script>
+    
+</head>
+<body>
+    <form name="napszam">
+        Év:<input type="text" name="ev"><br>
+        Hó:<input type="text" name="ho"><br>
+        Nap:<select name="nap">
+            <script>
+                for(i=1;i<32;i++)
+                document.write("<option>"+i+"</option>");
+            </script>
+        </select>
+        <input type="button" onclick="szamol()" value="Napjaid száma">
+        <input type="button" onclick="napra()" value="Milyen napra esett">
+    </form>
+</body>
+</html>
