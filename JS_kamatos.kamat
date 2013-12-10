@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+<html lang="hu">
+<head><link rel="stylesheet" type="text/css" href="https://moodle.duf.hu/theme/standard/styles.php" />
+<link rel="stylesheet" type="text/css" href="https://moodle.duf.hu/theme/czifra_v9_25_R2_02_collapse_konrad/styles.php" />
+
+    <script>
+        function szamol(){
+         var t = parseInt(document.kamatozik.toke.value);
+         var k = parseInt(document.kamatozik.kamat.value);
+         var e = parseInt(document.kamatozik.ev.value);
+         k=1+k/100;
+         var ered=Math.round(t*Math.pow(k,e));
+         document.kamatozik.eredmeny.value = ered;
+        }
+        function gen(){
+            var t = new Array();
+            for(i=0;i<20;i++)
+               t[i] = Math.floor(Math.random()*100+1);
+            document.tomb.elemek.value = t.toString();
+            //�tlagsz�m�t�s
+            var  osszeg=0;
+            for(i=0;i<20;i++)
+              osszeg += t[i];
+            document.tomb.atlag.value = osszeg/20;  
+        }
+        function atlagfeletti(){
+            var a = parseInt(document.tomb.atlag.value);
+            var be = parseInt(document.tomb.beszam.value);
+            if(a> be) alert("�tlag alatti.");
+            else alert("�tlagos, vagy felette van.")
+            
+        }
+        function valtas(){
+            if (!isNaN(document.atvalto.penz.value))
+            {
+                var p = parseInt(document.atvalto.penz.value);
+                var e = 0;
+                switch (document.atvalto.valasz.value){
+                case "1" : e = p * 260; break;
+                case "2" : e = p / 260 ; break;
+                case "3" : e = p / 165 * 260 ; break;
+                case "4" : e = p / 260 *165 ; break;
+                case "5" : e = p / 165 ; break;
+                case "6" : e = p * 165 ; break;
+                }
+             document.atvalto.eredmeny.value = e ;   
+            }//alert("J����");
+            else alert("Rosssz sz�m");
+        }
+    </script>
+</head>
+<body>
+    <hr>1. feladat<hr>
+    <form name="kamatozik">
+       T�ke <input type="text" name="toke"><br>
+       Kamat <input type="text" name="kamat"><br>
+       �v <input type="text" name="ev"><br>
+      <input type="button" value="Sz�mol" onclick="szamol()"><br>
+      Ennyi p�nzed lesz:  <input type="text" name="eredmeny"><br>
+    </form>
+    <hr>2. feladat<hr>
+    T�lts�nk fel egy t�mb�t (20 elem�) 1-100-ig v�letlensz�mokkal!
+    Sz�m�tsuk ki az �tlagukat, majd egy bek�rt sz�mr�l d�nts�k el,
+    hogy �tlag alatti-e?
+    <form name="tomb">
+        <input type="button" value="Gener�l�s" onclick="gen()">
+        <textarea name="elemek" cols=40 rows=5></textarea>
+        <br> �tlag:<input type="text" name="atlag">
+        <br>Sz�m:<input type="text" name="beszam">
+        <input type="button" value="�tlagos???" onclick="atlagfeletti()">
+        
+    </form>
+    <hr>3. feladat<hr>
+    <form name="atvalto">
+        Forint - EUR� - UDA Doll�r pn�zv�lt�s<br>
+        1 Eur� �rt�ke: <b>260</b> Forint<br>
+        1 USA $ �rt�ke: <b>165</b> Forint<br>
+        �rja be a v�ltand� �sszeget:<br>
+        <input type="text" name="penz" onchange="valtas()" onkeyup="valtas()"> <br>
+        V�lassza ki a v�lt�s t�pus�t:
+        <select name=valasz onchange="valtas()">
+        <option value=1>Euro-Forint</option>
+        <option value=2>Forint-Euro</option>
+        <option value=3>Euro-Doll�r</option>
+        <option value=4>Doll�r-Euro</option>
+        <option value=5>Forint-Doll�r</option>
+        <option value=6>Doll�r-Forint</option>
+         </select>   <br>
+         �tv�lt�s eredm�nye:<br>
+         <input type="text" name="eredmeny" readonly>
+         
+    </form>
+    
+</body>
+</html>
